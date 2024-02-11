@@ -1,0 +1,44 @@
+name: $S1/$PR2
+version: "0.3"
+
+security:
+  attestation:
+    tolerate: [debug-mode, hyperthreading, outdated-tcb]
+    ignore_advisories: "*"
+    one_time_password_shared_secret: $OTPSECRET
+
+secrets:
+  - name: keyR
+    kind: binary
+    import:
+      session: $S1/$POLICY_R
+      secret: keyR
+  - name: keyG
+    kind: binary
+    import:
+      session: $S1/$POLICY_G
+      secret: keyG
+  - name: keyB
+    kind: binary
+    import:
+      session: $S1/$POLICY_B
+      secret: keyB
+
+
+volumes:
+  - name: v1
+    import:
+      session: $S1/$VOLUME_EXPORT
+      volume: v1
+
+images:
+  - name: my_image
+    volumes:
+      - name: v1
+        path: /volumes/v1
+
+services:
+   - name: encryptdecrypt
+     image_name: my_image
+     command: ./encryptdecrypt -key1=\$\$SCONE::keyR:hex\$\$ -key2=\$\$SCONE::keyG:hex\$\$ -key3=\$\$SCONE::keyB:hex\$\$
+     pwd: /

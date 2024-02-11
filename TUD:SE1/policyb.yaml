@@ -1,0 +1,9 @@
+name: $S1/$POLICY_B
+version: "0.3"
+
+secrets:
+  - name: keyB
+    kind: binary
+    size: 32
+    export:
+      session: $S1/$PR2

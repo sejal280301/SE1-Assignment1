@@ -1,0 +1,25 @@
+Creating the policies R, G and B :
+
+echo $PREDECESSOR_POLICY_R
+bff206553fb27698658fa890f03a037d59f97b3e15a70d4d1717b5ed8d73e747
+
+
+bash-5.1# echo $PREDECESSOR_POLICY_G
+efb76166b04b2379ba050642d216f17d8bb27dd46a7c0303207abe066b0dd671
+
+bash-5.1# echo $PREDECESSOR_POLICY_B
+94e5cea03689cae611f1cbc1a2863cddb4bae2606f6945428ef3bf4991d3b213
+
+Exporting the policy p2:
+export PREDECESSOR_POLICY_P2=$(scone session create p2-policy.yaml)
+Warning: 0.3 is a legacy version. Please consider using 0.3.8 instead, unless you are targeting SCONE 5.7.0 or older
+Warning: Validation of security section raised warning(s)
+  Caused by: Please add an 'attestation' section for service 'encryptdecrypt' or deactivate attestation by setting security.attestation.mode to `none`. No program will be allowed access to the service's configuration with the current session.
+
+
+executing the program:
+bash-5.1# SCONE_MODE=SIM SCONE_CONFIG_ID=$S1/$PR2/encryptdecrypt@OTP ./encryptdecrypt
+bash: ./encryptdecrypt: No such file or directory
+
+
+

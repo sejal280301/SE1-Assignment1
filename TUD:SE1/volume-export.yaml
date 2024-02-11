@@ -1,0 +1,32 @@
+name: $S1/$VOLUME_EXPORT
+version: "0.3"
+predecessor: $PREDECESSOR_VOLUME_EXPORT
+
+volumes:
+  - name: v1
+    export:
+      - session: $S1/$PR1
+      - session: $S1/$PR2
+
+images:
+  - name: my_image
+    volumes:
+      - name: v1
+        path: /volumes/v1
+EOF
+bash-5.1# cat volume-export.yaml 
+name: printargs-1-17674/volume-export-10916
+version: "0.3"
+predecessor: 
+
+volumes:
+  - name: v1
+    export:
+      - session: printargs-1-17674/policy-p1-6558
+      - session: printargs-1-17674/policy-p2-527
+
+images:
+  - name: my_image
+    volumes:
+      - name: v1
+        path: /volumes/v1

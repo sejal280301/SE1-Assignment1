@@ -1,0 +1,28 @@
+name: $S1/$PR1
+version: "0.3"
+
+security:
+  attestation:
+    tolerate: [debug-mode, hyperthreading, outdated-tcb]
+    ignore_advisories: "*"
+    one_time_password_shared_secret: $OTPSECRET
+
+volumes:
+  - name: v1
+    import:
+      session: $S1/$VOLUME_EXPORT
+      volume: v1
+
+images:
+  - name: my_image
+    volumes:
+      - name: v1
+        path: /volumes/v1
+
+services:
+   - name: printargs-go
+     image_name: my_image
+     mrenclaves: [$MRENCLAVE]
+     command: ./printargs-go start @@1 @@2 @@3 end
+     pwd: /
+EOF
